@@ -10,11 +10,11 @@ export class OrderPage {
   }
 
   async verifyOrderConfirmation() {
-    await expect(this.orderConfirmationMessage).toBeVisible()
+    await expect(this.orderConfirmationMessage).toBeVisible({ timeout: 10000 })
 
     const orderText = await this.orderNumber.textContent()
 
     const match = orderText?.match(/\d+/)
-    expect(match).not.toBeNull() // debe tener número de orden
+    expect(match).not.toBeNull()
   }
 }

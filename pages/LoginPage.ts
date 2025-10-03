@@ -6,14 +6,12 @@ export class LoginPage {
   private readonly usernameTextbox: Locator
   private readonly passwordTextbox: Locator
   private readonly loginButton: Locator
-  private readonly welcomeText: Locator
 
   constructor(page: Page) {
     this.page = page
     this.usernameTextbox = page.getByRole('textbox', { name: 'USERNAME' })
     this.passwordTextbox = page.getByRole('textbox', { name: 'PASSWORD' })
     this.loginButton = page.getByRole('button', { name: 'SIGN IN' })
-    this.welcomeText = page.getByRole('heading', { name: 'Welcome!' })
   }
 
   async fillUsername(username: string) {
@@ -34,9 +32,9 @@ export class LoginPage {
     await this.clickOnLogin()
   }
 
-  async checkSuccessfulLogin() {
-    await expect(this.welcomeText).toBeVisible()
+  async loginVerificationMessage() {
+    await this.page.waitForURL('http://localhost:3100/home', { timeout: 10000 })
     const homePage = new HomePage(this.page)
-    await expect(homePage.getCheckoutButton()).toBeVisible()
+    await homePage.checkWelcomeMessageVisible()
   }
 }

@@ -1,17 +1,23 @@
-import { Locator, Page, expect } from '@playwright/test'
+import { Page, Locator, expect } from '@playwright/test'
 
 export class HomePage {
-  private readonly checkoutButton: Locator
+  readonly page: Page
+  readonly welcomeMessage: Locator
+  readonly usernameText: Locator
 
   constructor(page: Page) {
-    this.checkoutButton = page.getByRole('link', { name: 'Form' })
+    this.page = page
+    this.welcomeMessage = page.locator('#welcome-message h2')
+    this.usernameText = page.locator('#welcome-message [data-id="username"]')
   }
 
-  getCheckoutButton() {
-    return this.checkoutButton
+  async checkWelcomeMessageVisible() {
+    await expect(this.welcomeMessage).toBeVisible({ timeout: 10000 })
   }
 
-  async goToCheckoutPage() {
-    await this.checkoutButton.click()
+  async checkUsername(expectedUsername: string) {
+    await expect(this.usernameText).toHaveText(expectedUsername, {
+      timeout: 10000,
+    })
   }
 }
