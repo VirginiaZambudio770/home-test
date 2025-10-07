@@ -10,6 +10,7 @@ export default defineConfig({
   testMatch: '**/*.js',
   use: {
     baseURL: 'http://localhost:3100',
+    storageState: 'storageState.json',
     headless: false,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
