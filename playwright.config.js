@@ -36,5 +36,8 @@ export default defineConfig({
       name: 'WebKit',
       use: { ...devices['Desktop Safari'] },
     },*/,
+    { name: 'Desktop Chromium', use: { browserName: 'chromium' } },
+    { name: 'iPhone 14', use: { ...devices['iPhone 14'] } },
+    { name: 'Pixel 5', use: { ...devices['Pixel 5'] } },
   ],
 })
