@@ -4,7 +4,7 @@ import { GridPage } from '../../pages/GridPage'
 test.describe('Grid Tests', () => {
   test('Grid Item Test', async ({ page }) => {
     const gridPage = new GridPage(page)
-    await page.goto('http://localhost:3100/grid')
+    await page.goto('/grid')
 
     const itemName = await gridPage.getItemName(7)
     expect(itemName).toBe('Super Pepperoni')
@@ -15,7 +15,7 @@ test.describe('Grid Tests', () => {
 
   test('Grid All Items Test', async ({ page }) => {
     const gridPage = new GridPage(page)
-    await page.goto('http://localhost:3100/grid')
+    await page.goto('/grid')
 
     const count = await gridPage.getItemsCount()
 

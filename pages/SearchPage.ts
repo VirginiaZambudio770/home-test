@@ -14,7 +14,7 @@ export class SearchPage {
   }
 
   async goto() {
-    await this.page.goto('http://localhost:3100/search')
+    await this.page.goto('/search')
   }
 
   async search(word: string) {

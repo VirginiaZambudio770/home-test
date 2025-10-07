@@ -33,7 +33,7 @@ export class LoginPage {
   }
 
   async loginVerificationMessage() {
-    await this.page.waitForURL('http://localhost:3100/home', { timeout: 10000 })
+    await this.page.waitForURL('/home', { timeout: 10000 })
     const homePage = new HomePage(this.page)
     await homePage.checkWelcomeMessageVisible()
   }

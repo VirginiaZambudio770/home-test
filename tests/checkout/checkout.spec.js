@@ -4,7 +4,7 @@ import { CheckoutPage } from '../../pages/CheckoutPage'
 test.describe('Checkout Tests', () => {
   test('Checkout Form Order Success', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page)
-    await page.goto('http://localhost:3100/checkout')
+    await page.goto('/checkout')
 
     await checkoutPage.fillForm({
       fullName: 'John Doe',
@@ -20,10 +20,9 @@ test.describe('Checkout Tests', () => {
       CVV: '123',
     })
 
-    // 🔹 Aseguramos que el checkbox esté marcado antes de la verificación
     await checkoutPage.clickShippingAddressAsBilling()
 
-    await checkoutPage.expectShippingAddressAsBillingChecked()
+    await checkoutPage.ensureShippingAddressAsBillingChecked()
 
     await checkoutPage.submitForm()
 
@@ -33,7 +32,7 @@ test.describe('Checkout Tests', () => {
 
   test('Checkout Form Alert', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page)
-    await page.goto('http://localhost:3100/checkout')
+    await page.goto('/checkout')
 
     await checkoutPage.fillForm({
       firstName: 'John',

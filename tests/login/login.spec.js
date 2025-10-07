@@ -4,14 +4,14 @@ import { LoginPage } from '../../pages/LoginPage'
 test.describe('Login Tests', () => {
   test('Login Success', async ({ page }) => {
     const loginPage = new LoginPage(page)
-    await page.goto('http://localhost:3100/login')
+    await page.goto('/login')
     await loginPage.loginWithCredentials('johndoe19', 'supersecret')
     await loginPage.loginVerificationMessage()
   })
 
   test('Login Failure A - Wrong credentials', async ({ page }) => {
     const loginPage = new LoginPage(page)
-    await page.goto('http://localhost:3100/login')
+    await page.goto('/login')
 
     await loginPage.loginWithCredentials('wronguser', 'wrongpass')
 
@@ -20,7 +20,7 @@ test.describe('Login Tests', () => {
 
   test('Login Failure B - Blank fields', async ({ page }) => {
     const loginPage = new LoginPage(page)
-    await page.goto('http://localhost:3100/login')
+    await page.goto('/login')
 
     await loginPage.loginWithCredentials('', '')
 

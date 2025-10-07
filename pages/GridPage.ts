@@ -10,7 +10,7 @@ export class GridPage {
   }
 
   async goto() {
-    await this.page.goto('http://localhost:3100/grid')
+    await this.page.goto('/grid')
   }
 
   async getItemName(position: number): Promise<string> {

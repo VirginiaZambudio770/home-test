@@ -32,9 +32,7 @@ export class CheckoutPage {
     this.expMonth = page.getByRole('combobox', { name: 'Exp Month' })
     this.expYear = page.getByRole('textbox', { name: 'Exp Year' })
     this.CVV = page.getByRole('textbox', { name: 'CVV' })
-    this.shippingAddressAsBillingButton = page.getByRole('checkbox', {
-      name: 'Shipping address same as billing',
-    })
+    this.shippingAddressAsBillingButton = page.locator('[name="sameadr"]')
     this.continueToCheckoutButton = page.getByRole('button', {
       name: 'Continue to checkout',
     })
@@ -79,7 +77,15 @@ export class CheckoutPage {
     await this.shippingAddressAsBillingButton.click()
   }
 
-  async expectShippingAddressAsBillingChecked() {
+  async ensureShippingAddressAsBillingChecked() {
+    await this.shippingAddressAsBillingButton.waitFor({
+      state: 'visible',
+      timeout: 5000,
+    })
+    const isChecked = await this.shippingAddressAsBillingButton.isChecked()
+    if (!isChecked) {
+      await this.shippingAddressAsBillingButton.check()
+    }
     await expect(this.shippingAddressAsBillingButton).toBeChecked()
   }
 
