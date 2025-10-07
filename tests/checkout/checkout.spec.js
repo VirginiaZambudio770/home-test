@@ -1,35 +1,63 @@
 import { test, expect } from '@playwright/test'
 import { CheckoutPage } from '../../pages/CheckoutPage'
-import { OrderPage } from '../../pages/OrderPage'
 
 test.describe('Checkout Tests', () => {
   test('Checkout Form Order Success', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page)
-    const orderPage = new OrderPage(page)
-
     await page.goto('http://localhost:3100/checkout')
 
-    await checkoutPage.fillFullName('John Doe')
-    await checkoutPage.fillEmail('john@example.com')
-    await checkoutPage.fillAddress('123 Main St')
-    await checkoutPage.fillCity('New York')
-    await checkoutPage.fillState('NY')
-    await checkoutPage.fillZip('10001')
-    await checkoutPage.fillNameOnCard('John Doe')
-    await checkoutPage.fillCreditCardNumber('4111111111111111')
-    await checkoutPage.selectExpMonth('December')
-    await checkoutPage.fillExpYear('2025')
-    await checkoutPage.fillCVV('123')
+    await checkoutPage.fillForm({
+      fullName: 'John Doe',
+      email: 'john@example.com',
+      address: '123 Main St',
+      city: 'Cityville',
+      state: 'State',
+      zip: '12345',
+      nameOnCard: 'John Doe',
+      creditCardNumber: '4111111111111111',
+      expMonth: 'December',
+      expYear: '2025',
+      CVV: '123',
+    })
 
-    const isChecked =
-      await checkoutPage.shippingAddressAsBillingButton.isChecked()
-    if (!isChecked) {
-      await checkoutPage.clickShippingAddressAsBilling()
-    }
+    // 🔹 Aseguramos que el checkbox esté marcado antes de la verificación
+    await checkoutPage.clickShippingAddressAsBilling()
+
     await checkoutPage.expectShippingAddressAsBillingChecked()
 
-    await checkoutPage.clickContinueToCheckout()
+    await checkoutPage.submitForm()
 
-    await orderPage.verifyOrderConfirmation()
+    const orderNumber = await checkoutPage.getOrderNumber()
+    expect(orderNumber).not.toBe('')
+  })
+
+  test('Checkout Form Alert', async ({ page }) => {
+    const checkoutPage = new CheckoutPage(page)
+    await page.goto('http://localhost:3100/checkout')
+
+    await checkoutPage.fillForm({
+      firstName: 'John',
+      lastName: 'Doe',
+      address: '123 Main St',
+      city: 'Cityville',
+      state: 'State',
+      zip: '12345',
+      country: 'USA',
+      creditCardNumber: '4111111111111111',
+      expMonth: 'January',
+      expYear: '2025',
+      cvv: '123',
+    })
+
+    await checkoutPage.uncheckShippingSameAsBilling()
+
+    page.once('dialog', async (dialog) => {
+      expect(dialog.message()).toBe(
+        'Please check the "Shipping address same as billing" checkbox before submitting!'
+      )
+      await dialog.accept()
+    })
+
+    await checkoutPage.submitForm()
   })
 })
