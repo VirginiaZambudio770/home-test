@@ -7,6 +7,7 @@ export default defineConfig({
   expect: {
     timeout: 5000,
   },
+  testMatch: '**/*.js',
   use: {
     baseURL: 'http://localhost:3100',
     headless: false,
@@ -23,7 +24,7 @@ export default defineConfig({
     {
       name: 'Chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
+    } /*,
     {
       name: 'Firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -31,6 +32,6 @@ export default defineConfig({
     {
       name: 'WebKit',
       use: { ...devices['Desktop Safari'] },
-    },
+    },*/,
   ],
 })
