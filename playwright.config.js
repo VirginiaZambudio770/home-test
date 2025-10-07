@@ -1,5 +1,7 @@
 // playwright.config.js
 import { defineConfig, devices } from '@playwright/test'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 export default defineConfig({
   testDir: './tests',
@@ -9,7 +11,7 @@ export default defineConfig({
   },
   testMatch: '**/*.js',
   use: {
-    baseURL: 'http://localhost:3100',
+    baseURL: process.env.BASE_URL || 'http://localhost:3100',
     storageState: 'storageState.json',
     headless: false,
     screenshot: 'only-on-failure',
