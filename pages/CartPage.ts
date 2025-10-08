@@ -8,9 +8,8 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page
-    this.cartCounter = page.locator('.container h4 span.price b') // contador del carrito
-    this.totalPrice = page.locator('.container p span.price b').last() // total
-    // Solo los <p> que contienen un <a> y un <span class="price">
+    this.cartCounter = page.locator('.container h4 span.price b')
+    this.totalPrice = page.locator('.container p span.price b').last()
     this.productItems = page.locator('.container p:has(a):has(span.price)')
   }
 

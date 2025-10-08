@@ -60,4 +60,70 @@ test.describe('Checkout Tests', () => {
 
     await checkoutPage.submitForm()
   })
+
+  test('Required Fields Validation', async () => {
+    await checkoutPage.submitForm()
+
+    const fullNameError = await checkoutPage.fullName.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(fullNameError).toContain('Completa este campo')
+
+    const emailError = await checkoutPage.email.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(emailError).toContain('Completa este campo')
+
+    const addressError = await checkoutPage.address.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(addressError).toContain('Completa este campo')
+
+    const cityError = await checkoutPage.city.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(cityError).toContain('Completa este campo')
+
+    const stateError = await checkoutPage.state.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(stateError).toContain('Completa este campo')
+
+    const zipError = await checkoutPage.zip.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(zipError).toContain('Completa este campo')
+
+    const nameOnCardError = await checkoutPage.nameOnCard.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(nameOnCardError).toContain('Completa este campo')
+
+    const creditCardNumberError = await checkoutPage.creditCardNumber.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(creditCardNumberError).toContain('Completa este campo')
+  })
+
+  test('Invalid Email Format Validation', async () => {
+    await checkoutPage.fillForm({
+      fullName: 'Jane Doe',
+      email: 'invalidEmail',
+      address: '456 Elm St',
+      city: 'Metrocity',
+      state: 'Province',
+      zip: '54321',
+      nameOnCard: 'Jane Doe',
+      creditCardNumber: '4111111111111111',
+      expMonth: 'June',
+      expYear: '2026',
+      CVV: '456',
+    })
+
+    await checkoutPage.submitForm()
+    const emailError = await checkoutPage.email.evaluate(
+      (el) => el.validationMessage
+    )
+    expect(emailError).toContain('"@"')
+  })
 })
