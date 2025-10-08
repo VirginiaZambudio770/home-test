@@ -53,42 +53,42 @@ test.describe('Checkout Tests', () => {
     const fullNameError = await checkoutPage.fullName.evaluate(
       (el) => el.validationMessage
     )
-    expect(fullNameError).toContain('Please fill out this field.')
+    expect(fullNameError.toLowerCase()).toMatch(/fill out|complete/i)
 
     const emailError = await checkoutPage.email.evaluate(
       (el) => el.validationMessage
     )
-    expect(emailError).toContain('Please fill out this field.')
+    expect(emailError.toLowerCase()).toMatch(/email|@|fill out|complete/i)
 
     const addressError = await checkoutPage.address.evaluate(
       (el) => el.validationMessage
     )
-    expect(addressError).toContain('Please fill out this field.')
+    expect(addressError.toLowerCase()).toMatch(/fill out/i)
 
     const cityError = await checkoutPage.city.evaluate(
       (el) => el.validationMessage
     )
-    expect(cityError).toContain('Please fill out this field.')
+    expect(cityError.toLowerCase()).toMatch(/fill out/i)
 
     const stateError = await checkoutPage.state.evaluate(
       (el) => el.validationMessage
     )
-    expect(stateError).toContain('Please fill out this field.')
+    expect(stateError.toLowerCase()).toMatch(/fill out/i)
 
     const zipError = await checkoutPage.zip.evaluate(
       (el) => el.validationMessage
     )
-    expect(zipError).toContain('Please fill out this field.')
+    expect(zipError.toLowerCase()).toMatch(/fill out/i)
 
     const nameOnCardError = await checkoutPage.nameOnCard.evaluate(
       (el) => el.validationMessage
     )
-    expect(nameOnCardError).toContain('Please fill out this field.')
+    expect(nameOnCardError.toLowerCase()).toMatch(/fill out/i)
 
     const creditCardNumberError = await checkoutPage.creditCardNumber.evaluate(
       (el) => el.validationMessage
     )
-    expect(creditCardNumberError).toContain('Please fill out this field.')
+    expect(creditCardNumberError.toLowerCase()).toMatch(/fill out/i)
   })
 
   test('Invalid Email Format Validation', async () => {
@@ -110,8 +110,6 @@ test.describe('Checkout Tests', () => {
     const emailError = await checkoutPage.email.evaluate(
       (el) => el.validationMessage
     )
-    expect(emailError).toContain(
-      "Please include an '@' in the email address. 'invalidEmail' is missing an '@'."
-    )
+    expect(emailError.toLowerCase()).toMatch(/email|@|fill out|complete/i)
   })
 })

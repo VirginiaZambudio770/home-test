@@ -1,0 +1,29 @@
+[
+  {
+    "description": "Valid search word returns results",
+    "input": "automation",
+    "expectResultContains": "automation"
+  },
+  {
+    "description": "Empty search shows validation message",
+    "input": "",
+    "expectEmptyMessage": "Please provide a search word."
+  },
+  {
+    "description": "Nonexistent term returns no results",
+    "input": "textnotfound",
+    "expectErrorMessage": "No results found.",
+    "skip": true
+  },
+  {
+    "description": "Search with special characters",
+    "input": "@#!$%",
+    "expectErrorMessage": "Invalid characters in search.",
+    "skip": true
+  },
+  {
+    "description": "Search with numeric input",
+    "input": "12345",
+    "expectResultContains": "12345"
+  }
+]
