@@ -2,10 +2,14 @@ import { test, expect } from '@playwright/test'
 import { CheckoutPage } from '../../pages/CheckoutPage'
 
 test.describe('Checkout Tests', () => {
-  test('Checkout Form Order Success', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page)
-    await page.goto('/checkout')
+  let checkoutPage
 
+  test.beforeEach(async ({ page }) => {
+    checkoutPage = new CheckoutPage(page)
+    await page.goto('/checkout')
+  })
+
+  test('Checkout Form Order Success', async ({}) => {
     await checkoutPage.fillForm({
       fullName: 'John Doe',
       email: 'john@example.com',
@@ -31,9 +35,6 @@ test.describe('Checkout Tests', () => {
   })
 
   test('Checkout Form Alert', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page)
-    await page.goto('/checkout')
-
     await checkoutPage.fillForm({
       firstName: 'John',
       lastName: 'Doe',

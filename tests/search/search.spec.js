@@ -1,23 +1,22 @@
 import { test } from '@playwright/test'
 import { SearchPage } from '../../pages/SearchPage'
 
-test('Search Success', async ({ page }) => {
-  const searchPage = new SearchPage(page)
+test.describe('Search Tests', () => {
+  let searchPage
 
-  await searchPage.goto()
+  test.beforeEach(async ({ page }) => {
+    searchPage = new SearchPage(page)
+    await page.goto('/search')
+  })
 
-  const searchWord = 'automation'
-  await searchPage.search(searchWord)
+  test('Search Success', async ({ page }) => {
+    const searchWord = 'automation'
+    await searchPage.search(searchWord)
+    await searchPage.expectResultContains(searchWord)
+  })
 
-  await searchPage.expectResultContains(searchWord)
-})
-
-test('Search Empty', async ({ page }) => {
-  const searchPage = new SearchPage(page)
-
-  await searchPage.goto()
-
-  await searchPage.search('')
-
-  await searchPage.expectEmptyMessage('Please provide a search word.')
+  test('Search Empty', async ({ page }) => {
+    await searchPage.search('')
+    await searchPage.expectEmptyMessage('Please provide a search word.')
+  })
 })

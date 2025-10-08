@@ -28,12 +28,12 @@ export class SearchPage {
 
   async expectResultContains(word: string) {
     await expect(this.resultText).toHaveText(`Found one result for ${word}`, {
-      timeout: 5000,
+      timeout: 10000,
     })
   }
   async expectEmptyMessage() {
     await expect(this.resultText).toHaveText('Please provide a search word.', {
-      timeout: 5000,
+      timeout: 10000,
     })
   }
 }

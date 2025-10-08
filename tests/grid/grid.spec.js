@@ -2,10 +2,14 @@ import { test, expect } from '@playwright/test'
 import { GridPage } from '../../pages/GridPage'
 
 test.describe('Grid Tests', () => {
-  test('Grid Item Test', async ({ page }) => {
-    const gridPage = new GridPage(page)
-    await page.goto('/grid')
+  let gridPage
 
+  test.beforeEach(async ({ page }) => {
+    gridPage = new GridPage(page)
+    await page.goto('/grid')
+  })
+
+  test('Grid Item Test', async ({}) => {
     const itemName = await gridPage.getItemName(7)
     expect(itemName).toBe('Super Pepperoni')
 
@@ -13,10 +17,7 @@ test.describe('Grid Tests', () => {
     expect(itemPrice).toBe('$10')
   })
 
-  test('Grid All Items Test', async ({ page }) => {
-    const gridPage = new GridPage(page)
-    await page.goto('/grid')
-
+  test('Grid All Items Test', async ({}) => {
     const count = await gridPage.getItemsCount()
 
     for (let i = 1; i <= count; i++) {
