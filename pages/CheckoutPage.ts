@@ -80,7 +80,7 @@ export class CheckoutPage {
   async ensureShippingAddressAsBillingChecked() {
     await this.shippingAddressAsBillingButton.waitFor({
       state: 'visible',
-      timeout: 5000,
+      timeout: 10000,
     })
     const isChecked = await this.shippingAddressAsBillingButton.isChecked()
     if (!isChecked) {

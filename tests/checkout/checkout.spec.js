@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { CheckoutPage } from '../../pages/CheckoutPage'
+import checkoutData from '../../data/checkoutData.json'
 
 test.describe('Checkout Tests', () => {
   let checkoutPage
@@ -8,30 +9,15 @@ test.describe('Checkout Tests', () => {
     checkoutPage = new CheckoutPage(page)
     await page.goto('/checkout')
   })
-
-  test('Checkout Form Order Success', async ({}) => {
-    await checkoutPage.fillForm({
-      fullName: 'John Doe',
-      email: 'john@example.com',
-      address: '123 Main St',
-      city: 'Cityville',
-      state: 'State',
-      zip: '12345',
-      nameOnCard: 'John Doe',
-      creditCardNumber: '4111111111111111',
-      expMonth: 'December',
-      expYear: '2025',
-      CVV: '123',
+  checkoutData.forEach(({ name, data }) => {
+    test(name, async () => {
+      await checkoutPage.fillForm(data)
+      await checkoutPage.clickShippingAddressAsBilling()
+      await checkoutPage.ensureShippingAddressAsBillingChecked()
+      await checkoutPage.submitForm()
+      const orderNumber = await checkoutPage.getOrderNumber()
+      expect(orderNumber).not.toBe('')
     })
-
-    await checkoutPage.clickShippingAddressAsBilling()
-
-    await checkoutPage.ensureShippingAddressAsBillingChecked()
-
-    await checkoutPage.submitForm()
-
-    const orderNumber = await checkoutPage.getOrderNumber()
-    expect(orderNumber).not.toBe('')
   })
 
   test('Checkout Form Alert', async ({ page }) => {
@@ -67,42 +53,42 @@ test.describe('Checkout Tests', () => {
     const fullNameError = await checkoutPage.fullName.evaluate(
       (el) => el.validationMessage
     )
-    expect(fullNameError).toContain('Completa este campo')
+    expect(fullNameError).toContain('Please fill out this field.')
 
     const emailError = await checkoutPage.email.evaluate(
       (el) => el.validationMessage
     )
-    expect(emailError).toContain('Completa este campo')
+    expect(emailError).toContain('Please fill out this field.')
 
     const addressError = await checkoutPage.address.evaluate(
       (el) => el.validationMessage
     )
-    expect(addressError).toContain('Completa este campo')
+    expect(addressError).toContain('Please fill out this field.')
 
     const cityError = await checkoutPage.city.evaluate(
       (el) => el.validationMessage
     )
-    expect(cityError).toContain('Completa este campo')
+    expect(cityError).toContain('Please fill out this field.')
 
     const stateError = await checkoutPage.state.evaluate(
       (el) => el.validationMessage
     )
-    expect(stateError).toContain('Completa este campo')
+    expect(stateError).toContain('Please fill out this field.')
 
     const zipError = await checkoutPage.zip.evaluate(
       (el) => el.validationMessage
     )
-    expect(zipError).toContain('Completa este campo')
+    expect(zipError).toContain('Please fill out this field.')
 
     const nameOnCardError = await checkoutPage.nameOnCard.evaluate(
       (el) => el.validationMessage
     )
-    expect(nameOnCardError).toContain('Completa este campo')
+    expect(nameOnCardError).toContain('Please fill out this field.')
 
     const creditCardNumberError = await checkoutPage.creditCardNumber.evaluate(
       (el) => el.validationMessage
     )
-    expect(creditCardNumberError).toContain('Completa este campo')
+    expect(creditCardNumberError).toContain('Please fill out this field.')
   })
 
   test('Invalid Email Format Validation', async () => {
@@ -124,6 +110,8 @@ test.describe('Checkout Tests', () => {
     const emailError = await checkoutPage.email.evaluate(
       (el) => el.validationMessage
     )
-    expect(emailError).toContain('"@"')
+    expect(emailError).toContain(
+      "Please include an '@' in the email address. 'invalidEmail' is missing an '@'."
+    )
   })
 })

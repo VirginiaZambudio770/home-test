@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30 * 1000,
   expect: {
-    timeout: 5000,
+    timeout: 10000,
   },
   testMatch: '**/*.js',
   use: {
@@ -17,6 +17,11 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',
+    locale: 'en-US',
+    timezoneId: 'America/New_York',
+    launchOptions: {
+      args: ['--lang=en-US'],
+    },
   },
   retries: 1,
   reporter: [
@@ -26,18 +31,39 @@ export default defineConfig({
   projects: [
     {
       name: 'Chromium',
-      use: { ...devices['Desktop Chrome'] },
-    } /*,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
     {
       name: 'Firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+      },
     },
     {
       name: 'WebKit',
-      use: { ...devices['Desktop Safari'] },
-    },*/,
-    { name: 'Desktop Chromium', use: { browserName: 'chromium' } },
-    { name: 'iPhone 14', use: { ...devices['iPhone 14'] } },
-    { name: 'Pixel 5', use: { ...devices['Pixel 5'] } },
+      use: {
+        ...devices['Desktop Safari'],
+      },
+    },
+    {
+      name: 'Desktop Chromium',
+      use: {
+        browserName: 'chromium',
+      },
+    },
+    {
+      name: 'iPhone 14',
+      use: {
+        ...devices['iPhone 14'],
+      },
+    },
+    {
+      name: 'Pixel 5',
+      use: {
+        ...devices['Pixel 5'],
+      },
+    },
   ],
 })

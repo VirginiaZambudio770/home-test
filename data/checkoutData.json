@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Valid checkout for January",
+    "data": {
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "address": "123 Main St",
+      "city": "Cityville",
+      "state": "State",
+      "zip": "12345",
+      "nameOnCard": "John Doe",
+      "creditCardNumber": "4111111111111111",
+      "expMonth": "January",
+      "expYear": "2025",
+      "CVV": "123"
+    }
+  },
+  {
+    "name": "Valid checkout for February",
+    "data": {
+      "fullName": "Mary Smith",
+      "email": "mary@example.com",
+      "address": "456 Elm St",
+      "city": "Metropolis",
+      "state": "NY",
+      "zip": "67890",
+      "nameOnCard": "Mary Smith",
+      "creditCardNumber": "4111111111111112",
+      "expMonth": "February",
+      "expYear": "2026",
+      "CVV": "321"
+    }
+  },
+  {
+    "name": "Valid checkout for May",
+    "data": {
+      "fullName": "Aron Doe",
+      "email": "aron@example.com",
+      "address": "123 Main St",
+      "city": "Cityville",
+      "state": "State",
+      "zip": "12345",
+      "nameOnCard": "Aron Doe",
+      "creditCardNumber": "4111111111111113",
+      "expMonth": "May",
+      "expYear": "2025",
+      "CVV": "123"
+    }
+  },
+  {
+    "name": "Valid checkout for December",
+    "data": {
+      "fullName": "Jane Smith",
+      "email": "jane@example.com",
+      "address": "456 Elm St",
+      "city": "Metropolis",
+      "state": "NY",
+      "zip": "67890",
+      "nameOnCard": "Jane Smith",
+      "creditCardNumber": "4111111111111111",
+      "expMonth": "December",
+      "expYear": "2026",
+      "CVV": "321"
+    }
+  }
+]
