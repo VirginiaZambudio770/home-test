@@ -53,3 +53,17 @@ npx playwright test tests/checkout --project=Chromium
 
 ##Run a specific file
 npx playwright test tests/checkout/checkout.spec.js
+
+## How to run test cases on Docker
+
+##Build docker image
+
+```bash
+docker build -t home-test .
+
+##Execute test cases
+docker run --rm home-test
+
+##Results
+You can see the result on console
+```

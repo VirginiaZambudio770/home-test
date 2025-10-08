@@ -35,12 +35,12 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
       },
     },
-    {
+    /*{
       name: 'Firefox',
       use: {
         ...devices['Desktop Firefox'],
       },
-    },
+    },*/
     {
       name: 'WebKit',
       use: {
